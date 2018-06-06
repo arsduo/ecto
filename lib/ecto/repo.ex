@@ -651,10 +651,12 @@ defmodule Ecto.Repo do
       MyRepo.update_all(Post, inc: [visits: 1])
 
       MyRepo.update_all(Post, [inc: [visits: 1]], [returning: [:visits]])
-
+    
       from(p in Post, where: p.id < 10)
       |> MyRepo.update_all(set: [title: "New title"])
 
+      # You can also specify the updates in the queryable argument, which is particularly useful if you want
+      # to use pinned values. In that case, the updates argument should be empty.
       from(p in Post, where: p.id < 10, update: [set: [title: "New title"]])
       |> MyRepo.update_all([])
 
